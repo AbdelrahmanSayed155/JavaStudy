@@ -1,0 +1,72 @@
+
+DP 
+is provide developer solution for oop problems
+esign patterns are solutions to general problems that software developers faced during software development
+
+1 - creational design pattern 
+  it provide you ways to control how i create objects 
+   1 - single tone we restrict one object only from this class 
+   2  - prototype it restrict one object only created but every request have copy from it 
+         tells to create a clone of the current object it used when creation have cost in creation 
+   3 - 	 Builder pattern builds a complex object using simple objects and using a step by step approach.
+   This type of design pattern comes under creational pattern as this pattern provides one of the best ways
+   to create an object.
+        A Builder class builds the final object step by step. This builder is independent of other objects.
+   4-  factory pattern it use when we have super class has alot of sub clases and we create method it have 
+   responsability to \
+		 create objects 
+		 In Factory pattern, we create object without exposing the creation logic to the client and refer to newly 
+		 created object using a common interface.
+	5-  in abstract factory we create for every class interface to get object from it 	 
+		 
+2 - structural pattern 
+         it used for provid good way in inheritance and composition and realtion between classes
+         These design patterns concern class and object composition. Concept of inheritance is used to 
+		 compose interfaces and define ways to compose objects to obtain new functionalities.         
+		 1- Adapter pattern works as a bridge between two incompatible interfaces. This type of design 
+		 pattern comes under structural pattern as this pattern combines the capability of two independent interfaces.		 
+             example as reader work as pridge between memory card and computer
+              This pattern involves a single class which is responsible to join functionalities of 
+			  independent or incompatible interfaces. A real life example could be a case of card reader which acts 
+			  as an adapter between memory card and a laptop. You plugin the memory card into card reader and card reader 
+			  into the laptop so that memory card can be read via laptop.
+          2- Bridge is used when we need to decouple an abstraction from its implementation so 
+		    that the two can vary independently. This type of design pattern comes under structural
+			pattern as this pattern decouples implementation class and abstract class by providing a bridge structure
+			between them.
+                abstract have object from implementation 
+
+         3-In proxy pattern, a class represents functionality of another class. This type of design pattern
+		 comes under structural pattern.
+
+            In proxy pattern, we create object having original object to interface its functionality to outer world.
+
+3 - behavior pttern These design patterns are specifically concerned with communication between objects.
+
+     1- behaior pattern : Iterator pattern is very commonly used design pattern in Java and 
+	 .Net programming environment. This pattern is used to get a way to access the elements of a collection 
+	 object in sequential manner without any need to know its underlying representation.			
+
+	 2 Observer pattern is used when there is one-to-many relationship between objects such as if one object is modified,
+	 its depenedent objects are to be notified automatically. 
+	 Observer pattern falls under behavioral pattern category.
+	 
+	 3- Design Patterns - Null Object Pattern : In Null Object pattern, a null object replaces check of NULL object instance. 
+	 Instead of putting if check for a null value, Null Object reflects a do nothing relationship. Such Null object can also
+	 be used to provide default behaviour in case data is not available.
+	 
+	4-In Strategy pattern, a class behavior or its algorithm can be changed at run time.
+	This type of design pattern comes under behavior pattern.
+
+        In Strategy pattern, we create objects which represent various strategies and a context object whose
+		behavior varies as per its strategy object. The strategy object changes the executing algorithm of the context object. 
+    	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+		
+		 

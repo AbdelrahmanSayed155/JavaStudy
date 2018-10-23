@@ -1,0 +1,248 @@
+------------------------------------------------
+The Lambda expression is used to provide the implementation of an interface which has functional interface. 
+It saves a lot of code. In case of lambda expression, we don't need to define the method again for providing the implementation.
+Here, we just write the implementation code.
+Java lambda expression is treated as a function, so compiler does not create .class file.
+
+Functional Interface
+Lambda expression provides implementation of functional interface. An interface which has only one abstract method is called
+ functional interface. Java provides an anotation @FunctionalInterface, which is used to declare an interface as functional 
+ interface.
+
+Why use Lambda Expression
+ To provide the implementation of Functional interface.
+ Less coding.
+ 
+ Java Lambda Expression Syntax
+(argument-list) -> {body}  
+ 
+ interface that i use lamda expression  must be functional interface 
+-------------------------------------------------------------------------
+ 
+ Java Functional Interfaces
+ 
+ An Interface that contains exactly one abstract method is known as functional interface. 
+ It can have any number of default, static methods but can contain only one abstract method. 
+ It can also declare methods of object class.
+Functional Interface is also known as Single Abstract Method Interfaces or SAM Interfaces.
+ It is a new feature in Java, which helps to achieve functional programming approach.
+ ------------------------------------------------------------------------------
+ Java Method References
+ Java provides a new feature called method reference in Java 8.
+ Method reference is used to refer method of functional interface. 
+ It is compact and easy form of lambda expression. Each time when you are using lambda expression to just referring a method, 
+ you can replace your lambda expression with method reference. In this tutorial,
+ we are explaining method reference concept in detail.
+ 
+ There are following types of method references in java:
+Reference to a static method.
+Reference to an instance method.
+Reference to a constructor.
+ 
+ ------------------------------------------------------------------
+ Java 8 Stream
+Java provides a new additional package in Java 8 called java.util.stream. This package consists of classes, interfaces and enum to allows functional-style operations on the elements. You can use stream by importing java.util.stream package.
+
+Stream provides following features:
+
+Stream does not store elements. It simply conveys elements from a source such as a data structure, an array, or an I/O channel, through a pipeline of computational operations.
+Stream is functional in nature. Operations performed on a stream does not modify it's source. For example, filtering a Stream obtained from a collection produces a new Stream without the filtered elements, rather than removing elements from the source collection.
+Stream is lazy and evaluates code only when required.
+The elements of a stream are only visited once during the life of a stream. Like an Iterator, a new stream must be generated to revisit the same elements of the source.
+You can use stream to filter, collect, print, and convert from one data structure to other etc. In the following examples, we have apply various operations with the help of stream.
+ 
+ ----------------------------------------
+ Java Stream Filter
+Java stream provides a method filter() to filter stream elements on the basis of given predicate.
+ Suppose you want to get only even elements of your list then you can do this easily with the help of filter method.
+This method takes predicate as an argument and returns a stream of consisting of resulted elements.
+productsList.stream()  
+                    .filter(p ->p.price> 30000)   // filtering price  
+                    .map(pm ->pm.price)          // fetching price  
+                    .forEach(System.out::println);  // iterating price  
+-------------------------------------------------
+Java Default Methods
+Java provides a facility to create default methods inside the interface. Methods which are defined inside the interface and tagged with default 
+are known as default methods. These methods are non-abstract methods.
+
+Java Default Method Example
+In the following example, Sayable is a functional interface that contains a default and an abstract method. 
+The concept of default method is used to define a method with default implementation.
+ You can override default method also to provide more specific implementation for the method.
+Static Methods inside Java 8 Interface
+You can also define static methods inside the interface. Static methods are used to define utility methods. 
+The following example explain, how to implement static method in interface?					
+--------------------------------------------------------------------------------
+Java forEach loop
+Java provides a new method forEach() to iterate the elements. It is defined in Iterable and Stream interface.
+ It is a default method defined in the Iterable interface. Collection classes which extends Iterable interface 
+ can use forEach loop to iterate elements.
+This method takes a single parameter which is a functional interface. So, you can pass lambda expression as an argument.				
+Example 
+import java.util.ArrayList;  
+import java.util.List;  
+public class ForEachExample {  
+    public static void main(String[] args) {  
+        List<String> gamesList = new ArrayList<String>();  
+        gamesList.add("Football");  
+        gamesList.add("Cricket");  
+        gamesList.add("Chess");  
+        gamesList.add("Hocky");  
+        System.out.println("------------Iterating by passing lambda expression--------------");  
+        gamesList.forEach(games -> System.out.println(games));  
+          
+    }  
+}  
+----------------------------------------------------
+Java Collectors
+Collectors is a final class that extends Object class. It provides reduction operations, 
+such as accumulating elements into collections, summarizing elements according to various criteria, etc.
+
+Java Collectors class provides various methods to deal with elements				
+
+ 
+  List<Product> productsList = new ArrayList<Product>();  
+        //Adding Products  
+        productsList.add(new Product(1,"HP Laptop",25000f));  
+        productsList.add(new Product(2,"Dell Laptop",30000f));  
+        productsList.add(new Product(3,"Lenevo Laptop",28000f));  
+        productsList.add(new Product(4,"Sony Laptop",28000f));  
+        productsList.add(new Product(5,"Apple Laptop",90000f));  
+        List<Float> productPriceList =   
+                productsList.stream()  
+                            .map(x->x.price)         // fetching price  
+                            .collect(Collectors.toList());  // collecting as list  
+        System.out.println(productPriceList);  
+		
+		
+		or using  .collect(Collectors.toSet());   // collecting as list  
+		or using for summing 
+		 Double sumPrices =   
+                productsList.stream()  
+                            .collect(Collectors.summingDouble(x->x.price));  // collecting as list  
+        System.out.println("Sum of prices: "+sumPrices);  
+        Integer sumId =   
+                productsList.stream().collect(Collectors.summingInt(x->x.id));  
+				
+		or using for get average 
+          Double average = productsList.stream()  
+                         .collect(Collectors.averagingDouble(p->p.price));  
+
+		or for counting elements 
+             Long noOfElements = productsList.stream()  
+                               .collect(Collectors.counting());  
+
+--------------------------------------------------------------------
+Java StringJoiner
+Java added a new final class StringJoiner in java.util package. It is used to construct a sequence of characters separated by a delimiter.
+ Now, you can create string by passing delimiters like comma(,), hyphen(-) etc.
+ You can also pass prefix and suffix to the char sequence							   
+ StringJoiner joinNames = new StringJoiner(","); // passing comma(,) as delimiter   
+          
+        // Adding values to StringJoiner  
+        joinNames.add("Rahul");  
+        joinNames.add("Raju");  
+        joinNames.add("Peter");  
+        joinNames.add("Raheem");  
+                  
+        System.out.println(joinNames);  
+    }  
+}  
+Rahul,Raju,Peter,Raheem
+
+ or 
+  StringJoiner joinNames = new StringJoiner(",", "[", "]");   // passing comma(,) and square-brackets as delimiter   
+              Output:[Rahul,Raju,Peter,Raheem]
+ 
+ 
+ 
+ in using merge betweent to  StringJoiner prefix and suffix frist object have high priority from other 
+      ob1.merge(ob2)
+	  prefix and suffix from frist object only  {ob1}
+ --------------------------------------------------------------------------------
+ Java Optional Class
+Java introduced a new class Optional in jdk8. 
+It is a public final class and used to deal with NullPointerException in Java application. 
+You must import java.util package to use this class. It provides methods which are used to check the presence of value
+ for particular variable.
+ before using optional class
+  String[] str = new String[10];  
+        String lowercaseString = str[5].toLowerCase();  
+        System.out.print(lowercaseString); 
+		output
+		Exception in thread "main" java.lang.NullPointerException
+	at lambdaExample.OptionalExample.main(OptionalExample.java:6)
+ 
+ using optional class
+ import java.util.Optional;  
+public class OptionalExample {  
+    public static void main(String[] args) {  
+        String[] str = new String[10];  
+        Optional<String> checkNull = Optional.ofNullable(str[5]);  
+        if(checkNull.isPresent()){  // check for value is present or not  
+            String lowercaseString = str[5].toLowerCase();  
+            System.out.print(lowercaseString);  
+        }else  
+            System.out.println("string value is not present");  
+    }  
+ -----------------------------------------
+ Java Nashorn
+Nashorn is a JavaScript engine. It is used to execute JavaScript code dynamically at JVM (Java Virtual Machine). 
+Java provides a command-line tool jjs which is used to execute JavaScript code.
+
+You can execute JavaScript code by using jjs command-line tool and by embedding into Java source code.
+ 
+ ----------------------------------------------
+ Java Parallel Array Sorting
+Java provides a new additional feature in Array class which is used to sort array elements parallel.
+New methods has added to java.util.Arrays package that use the JSR 166 Fork/Join parallelism common pool to
+ provide sorting of arrays in parallel.The methods are called parallelSort() and are overloaded for all the primitive data 
+ types and Comparable objects.
+ ------------------------------
+ Java Type Inference
+Type inference is a feature of Java which provides ability to compiler to look at each method invocation
+ and corresponding declaration to determine the type of arguments.
+Java provides improved version of type inference in Java 8. the following example explains, how we can use 
+type inference in our code:
+Here, we are creating arraylist by mentioning integer type explicitly at both side. 
+The following approach is used earlier versions of Java.
+
+
+  public static void showList(List<Integer>list){  
+        if(!list.isEmpty()){  
+            list.forEach(System.out::println);  
+        }else System.out.println("list is empty");  
+    }  
+	 showList(new ArrayList<>());  
+	 
+-----------------------------------------------------------------------
+Method Parameter Reflection
+Java provides a new feature in which you can get the names of formal parameters of any method or constructor. 
+The java.lang.reflect package contains all the required classes like Method and Parameter to work with parameter reflection.
+
+Method class
+It provides information about single method on a class or interface. 
+The reflected method may be a class method or an instance method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

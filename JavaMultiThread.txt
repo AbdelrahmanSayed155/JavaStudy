@@ -1,0 +1,476 @@
+Multithreading
+Multitasking
+Process-based multitasking
+Thread-based multitasking
+What is Thread
+Multithreading in java is a process of executing multiple threads simultaneously.
+
+A thread is a lightweight sub-process, the smallest unit of processing. Multiprocessing and multithreading,
+ both are used to achieve multitasking.
+
+However, we use multithreading than multiprocessing because threads use a shared memory area.
+ They don't allocate separate memory area so saves memory, and context-switching between the threads
+ takes less time than process.
+
+Java Multithreading is mostly used in games, animation, etc
+-----------------------------------------------------------------------
+Advantages of Java Multithreading
+1) It doesn't block the user because threads are independent and you can perform multiple operations at the same time.
+
+2) You can perform many operations together, so it saves time.
+
+3) Threads are independent, so it doesn't affect other threads if an exception occurs in a single thread.
+
+Multitasking
+Multitasking is a process of executing multiple tasks simultaneously. We use multitasking to utilize the CPU. Multitasking can be achieved in two ways:
+
+Process-based Multitasking (Multiprocessing)
+Thread-based Multitasking (Multithreading)
+1) Process-based Multitasking (Multiprocessing)
+Each process has an address in memory. In other words, each process allocates a separate memory area.
+A process is heavyweight.
+Cost of communication between the process is high.
+Switching from one process to another requires some time for saving and loading registers, memory maps, updating lists, etc.
+2) Thread-based Multitasking (Multithreading)
+Threads share the same address space.
+A thread is lightweight.
+Cost of communication between the thread is low.
+
+What is Thread in java
+A thread is a lightweight subprocess, the smallest unit of processing. It is a separate path of execution.
+
+Threads are independent. If there occurs exception in one thread, it doesn't affect other threads.
+ It uses a shared memory area.
+ 
+ Life Cycle Of Threads 
+ A thread can be in one of the five states. According to sun, there is only 4 states in thread life cycle in java new, runnable, non-runnable and terminated. There is no running state.
+
+But for better understanding the threads, we are explaining it in the 5 states.
+
+The life cycle of the thread in java is controlled by JVM. The java thread states are as follows:
+
+New
+Runnable
+Running
+Non-Runnable (Blocked)
+Terminated
+
+
+next →← prev
+Life cycle of a Thread (Thread States)
+Life cycle of a thread
+New
+Runnable
+Running
+Non-Runnable (Blocked)
+Terminated
+A thread can be in one of the five states. According to sun, there is only 4 states in thread life cycle in java new, runnable, non-runnable and terminated. There is no running state.
+
+But for better understanding the threads, we are explaining it in the 5 states.
+
+The life cycle of the thread in java is controlled by JVM. The java thread states are as follows:
+
+New
+Runnable
+Running
+Non-Runnable (Blocked)
+Terminated
+Java thread life cycle 
+
+ 
+1) New
+The thread is in new state if you create an instance of Thread class but before the invocation of start() method.
+
+2) Runnable
+The thread is in runnable state after invocation of start() method, but the thread scheduler has not selected it to be the running thread.
+
+3) Running
+The thread is in running state if the thread scheduler has selected it.
+
+4) Non-Runnable (Blocked)
+This is the state when the thread is still alive, but is currently not eligible to run.
+
+5) Terminated
+A thread is in terminated or dead state when its run() method exits
+---------------------------
+Thread Scheduler in Java
+Thread scheduler in java is the part of the JVM that decides which thread should run.
+
+There is no guarantee that which runnable thread will be chosen to run by the thread scheduler.
+
+Only one thread at a time can run in a single process.
+
+The thread scheduler mainly uses preemptive or time slicing scheduling to schedule the threads.
+
+Difference between preemptive scheduling and time slicing
+Under preemptive scheduling, the highest priority task executes until it enters the waiting or dead states
+ or a higher priority task comes into existence. Under time slicing, a task executes for a predefined slice 
+ of time and then reenters the pool of ready tasks. The scheduler then determines which task should execute next,
+ based on priority and other factors.
+---------------------------------------------
+Sleep method in java
+The sleep() method of Thread class is used to sleep a thread for the specified amount of time.
+
+Syntax of sleep() method in java
+The Thread class provides two methods for sleeping a thread:
+
+public static void sleep(long miliseconds)throws InterruptedException
+public static void sleep(long miliseconds, int nanos)throws InterruptedException
+Example of sleep method in java
+class TestSleepMethod1 extends Thread{  
+ public void run(){  
+  for(int i=1;i<5;i++){  
+    try{Thread.sleep(500);}catch(InterruptedException e){System.out.println(e);}  
+    System.out.println(i);  
+  }  
+ }  
+ public static void main(String args[]){  
+  TestSleepMethod1 t1=new TestSleepMethod1();  
+  TestSleepMethod1 t2=new TestSleepMethod1();  
+   
+  t1.start();  
+  t2.start();  
+ }  
+}  
+Output:
+
+       1
+       1
+       2
+       2
+       3
+       3
+       4
+       4
+As you know well that at a time only one thread is executed. 
+If you sleep a thread for the specified time,the thread shedular picks up another thread and so on.
+Can we start a thread twice
+No. After starting a thread, it can never be started again. If you does so, an IllegalThreadStateException is thrown.
+ In such case, thread will run once but for second time, it will throw exception.
+
+Let's understand it by the example given below:
+---------------------------------------------------------
+
+The join() method
+The join() method waits for a thread to die. In other words, it causes the currently running threads to stop executing 
+until the thread it joins with completes its task.
+
+Syntax:
+public void join()throws InterruptedException
+public void join(long milliseconds)throws InterruptedException
+Example of join() method
+class TestJoinMethod1 extends Thread{  
+ public void run(){  
+  for(int i=1;i<=5;i++){  
+   try{  
+    Thread.sleep(500);  
+   }catch(Exception e){System.out.println(e);}  
+  System.out.println(i);  
+  }  
+ }  
+public static void main(String args[]){  
+ TestJoinMethod1 t1=new TestJoinMethod1();  
+ TestJoinMethod1 t2=new TestJoinMethod1();  
+ TestJoinMethod1 t3=new TestJoinMethod1();  
+ t1.start();  
+ try{  
+  t1.join();  
+ }catch(Exception e){System.out.println(e);}  
+  
+ t2.start();  
+ t3.start();  
+ }  
+}  
+Test it Now
+Output:1
+       2
+       3
+       4
+       5
+       1
+       1
+       2
+       2
+       3
+       3
+       4
+       4
+       5
+       5
+-----------------------------------------------
+Priority of a Thread (Thread Priority):
+Each thread have a priority. Priorities are represented by a number between 1 and 10. In most cases, 
+thread schedular schedules the threads according to their priority (known as preemptive scheduling). 
+But it is not guaranteed because it depends on JVM specification that which scheduling it chooses.
+3 constants defined in Thread class:
+public static int MIN_PRIORITY
+public static int NORM_PRIORITY
+public static int MAX_PRIORITY
+Default priority of a thread is 5 (NORM_PRIORITY). The value of MIN_PRIORITY is 1 and the value of MAX_PRIORITY is 10.
+Example of priority of a Thread:
+class TestMultiPriority1 extends Thread{  
+ public void run(){  
+   System.out.println("running thread name is:"+Thread.currentThread().getName());  
+   System.out.println("running thread priority is:"+Thread.currentThread().getPriority());  
+  
+  }  
+ public static void main(String args[]){  
+  TestMultiPriority1 m1=new TestMultiPriority1();  
+  TestMultiPriority1 m2=new TestMultiPriority1();  
+  m1.setPriority(Thread.MIN_PRIORITY);  
+  m2.setPriority(Thread.MAX_PRIORITY);  
+  m1.start();  
+  m2.start();  
+   
+ }  
+}     
+Test it Now
+Output:running thread name is:Thread-0
+       running thread priority is:10
+       running thread name is:Thread-1
+       running thread priority is:1
+       
+---------------------------------------------------
+
+Daemon Thread in Java
+Daemon thread in java is a service provider thread that provides services to the user thread. Its life depend on the mercy 
+of user threads i.e. when all the user threads dies, JVM terminates this thread automatically.
+
+There are many java daemon threads running automatically e.g. gc, finalizer etc.
+
+You can see all the detail by typing the jconsole in the command prompt. The jconsole tool provides information about 
+the loaded classes, memory usage, running threads etc.
+
+Points to remember for Daemon Thread in Java
+It provides services to user threads for background supporting tasks. It has no role in life than to serve user threads.
+Its life depends on user threads.
+It is a low priority thread.
+Why JVM terminates the daemon thread if there is no user thread?
+The sole purpose of the daemon thread is that it provides services to user thread for background supporting task.
+ If there is no user thread, why should JVM keep running this thread. That is why JVM terminates the daemon thread 
+ if there is no user thread.
+
+Methods for Java Daemon thread by Thread class
+The java.lang.Thread class provides two methods for java daemon thread.
+
+No.	Method	Description
+1)	public void setDaemon(boolean status)	is used to mark the current thread as daemon thread or user thread.
+2)	public boolean isDaemon()	is used to check that current is daemon.
+Simple example of Daemon thread in java
+File: MyThread.java
+
+public class TestDaemonThread1 extends Thread{  
+ public void run(){  
+  if(Thread.currentThread().isDaemon()){//checking for daemon thread  
+   System.out.println("daemon thread work");  
+  }  
+  else{  
+  System.out.println("user thread work");  
+ }  
+ }  
+ public static void main(String[] args){  
+  TestDaemonThread1 t1=new TestDaemonThread1();//creating thread  
+  TestDaemonThread1 t2=new TestDaemonThread1();  
+  TestDaemonThread1 t3=new TestDaemonThread1();  
+  
+  t1.setDaemon(true);//now t1 is daemon thread  
+    
+  t1.start();//starting threads  
+  t2.start();  
+  t3.start();  
+ }  
+}  
+Test it Now
+Output
+daemon thread work
+user thread work
+user thread work
+
+
+-------------------------------
+Java Thread Pool
+Java Thread pool represents a group of worker threads that are waiting for the job and reuse many times.
+
+In case of thread pool, a group of fixed size threads are created. A thread from the
+ thread pool is pulled out and assigned a job by the service provider. After completion of the job, 
+ thread is contained in the thread pool again.
+
+Advantage of Java Thread Pool
+Better performance It saves time because there is no need to create new thread.
+
+Real time usage
+It is used in Servlet and JSP where container creates a thread pool to process the request.
+
+Example of Java Thread Pool
+Let's see a simple example of java thread pool using ExecutorService and Executors.
+
+File: WorkerThread.java
+
+import java.util.concurrent.ExecutorService;  
+import java.util.concurrent.Executors;  
+class WorkerThread implements Runnable {  
+    private String message;  
+    public WorkerThread(String s){  
+        this.message=s;  
+    }  
+     public void run() {  
+        System.out.println(Thread.currentThread().getName()+" (Start) message = "+message);  
+        processmessage();//call processmessage method that sleeps the thread for 2 seconds  
+        System.out.println(Thread.currentThread().getName()+" (End)");//prints thread name  
+    }  
+    private void processmessage() {  
+        try {  Thread.sleep(2000);  } catch (InterruptedException e) { e.printStackTrace(); }  
+    }  
+}  
+File: JavaThreadPoolExample.java
+
+public class TestThreadPool {  
+     public static void main(String[] args) {  
+        ExecutorService executor = Executors.newFixedThreadPool(5);//creating a pool of 5 threads  
+        for (int i = 0; i < 10; i++) {  
+            Runnable worker = new WorkerThread("" + i);  
+            executor.execute(worker);//calling execute method of ExecutorService  
+          }  
+        executor.shutdown();  
+        while (!executor.isTerminated()) {   }  
+  
+        System.out.println("Finished all threads");  
+    }  
+ }  
+download this example
+Output:
+
+pool-1-thread-1 (Start) message = 0
+pool-1-thread-2 (Start) message = 1
+pool-1-thread-3 (Start) message = 2
+pool-1-thread-5 (Start) message = 4
+pool-1-thread-4 (Start) message = 3
+pool-1-thread-2 (End)
+pool-1-thread-2 (Start) message = 5
+pool-1-thread-1 (End)
+pool-1-thread-1 (Start) message = 6
+pool-1-thread-3 (End)
+pool-1-thread-3 (Start) message = 7
+pool-1-thread-4 (End)
+pool-1-thread-4 (Start) message = 8
+pool-1-thread-5 (End)
+pool-1-thread-5 (Start) message = 9
+pool-1-thread-2 (End)
+pool-1-thread-1 (End)
+pool-1-thread-4 (End)
+pool-1-thread-3 (End)
+pool-1-thread-5 (End)
+Finished all threads
+-----------------------------------------------
+ThreadGroup in Java
+Java provides a convenient way to group multiple threads in a single object.
+ In such way, we can suspend, resume or interrupt group of threads by a single method call.
+
+Note: Now suspend(), resume() and stop() methods are deprecated.
+Java thread group is implemented by java.lang.ThreadGroup class.
+
+A ThreadGroup represents a set of threads. A thread group can also include the other thread group.
+ The thread group creates a tree in which every thread group except the initial thread group has a parent.
+
+A thread is allowed to access information about its own thread group,
+ but it cannot access the information about its thread group's parent thread group or any other thread groups.
+
+Constructors of ThreadGroup class
+There are only two constructors of ThreadGroup class.
+
+public class ThreadGroupDemo implements Runnable{  
+    public void run() {  
+          System.out.println(Thread.currentThread().getName());  
+    }  
+   public static void main(String[] args) {  
+      ThreadGroupDemo runnable = new ThreadGroupDemo();  
+          ThreadGroup tg1 = new ThreadGroup("Parent ThreadGroup");  
+            
+          Thread t1 = new Thread(tg1, runnable,"one");  
+          t1.start();  
+          Thread t2 = new Thread(tg1, runnable,"two");  
+          t2.start();  
+          Thread t3 = new Thread(tg1, runnable,"three");  
+          t3.start();  
+               
+          System.out.println("Thread Group Name: "+tg1.getName());  
+         tg1.list();  
+  
+    }  
+   }  
+Output:
+
+one
+two
+three
+Thread Group Name: Parent ThreadGroup
+java.lang.ThreadGroup[name=Parent ThreadGroup,maxpri=10]
+    Thread[one,5,Parent ThreadGroup]
+    Thread[two,5,Parent ThreadGroup]
+    Thread[three,5,Parent ThreadGroup]
+	
+	
+--------------------------------------------
+Java Shutdown Hook
+The shutdown hook can be used to perform cleanup resource or save the state when JVM shuts down normally or abruptly. Performing clean resource means closing log file, sending some alerts or something else. So if you want to execute some code before JVM shuts down, use shutdown hook.
+
+When does the JVM shut down?
+The JVM shuts down when:
+user presses ctrl+c on the command prompt
+System.exit(int) method is invoked
+user logoff
+user shutdown etc.
+The addShutdownHook(Thread hook) method
+The addShutdownHook() method of Runtime class is used to register the thread with the Virtual Machine. Syntax:
+
+public void addShutdownHook(Thread hook){}  
+
+The object of Runtime class can be obtained by calling the static factory method getRuntime(). For example:
+
+Runtime r = Runtime.getRuntime();
+
+Factory method
+The method that returns the instance of a class is known as factory method.
+
+Simple example of Shutdown Hook
+class MyThread extends Thread{  
+    public void run(){  
+        System.out.println("shut down hook task completed..");  
+    }  
+}  
+  
+public class TestShutdown1{  
+public static void main(String[] args)throws Exception {  
+  
+Runtime r=Runtime.getRuntime();  
+r.addShutdownHook(new MyThread());  
+      
+System.out.println("Now main sleeping... press ctrl+c to exit");  
+try{Thread.sleep(3000);}catch (Exception e) {}  
+}  
+}  
+Output:Now main sleeping... press ctrl+c to exit
+       shut down hook task completed..
+ -----------------------------------
+you have one class extends thread or runable this single task by multiple threads
+if you have alot classes extend threads or runnable this  multi  task by multiple threads 
+ 
+---------------------------------------------------------
+Java Runtime class is used to interact with java runtime environment. 
+Java Runtime class provides methods to execute a process, invoke GC, get total and free memory etc. 
+There is only one instance of java.lang.Runtime class is available for one java application.
+
+The Runtime.getRuntime() method returns the singleton instance of Runtime class
+
+
+
+
+
+
+
+
+
+
+
+
+

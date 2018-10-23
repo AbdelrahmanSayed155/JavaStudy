@@ -1,0 +1,201 @@
+Servlet 
+Java Servlets are programs that run on a Web or Application server and act as a middle layer between a requests coming from a Web browser or other HTTP client and databases or applications on the HTTP server.
+
+Servlet LyfeCyCle
+The servlet is initialized by calling the init() method.
+The servlet calls service() method to process a client's request.
+The servlet is terminated by calling the destroy() method.
+
+The init() Method
+The init method is called only once. It is called only when the servlet is created, and not called for any user requests afterwards. So, it is used for one-time initializations, just as with the init method of applets.
+The servlet is normally created when a user first invokes a URL corresponding to the servlet, but you can also specify that the servlet be loaded when the server is first started.
+When a user invokes a servlet, a single instance of each servlet gets created, with each user request resulting in a new thread that is handed off to doGet or doPost as appropriate. The init() method simply creates or loads some data that will be used throughout the life of the servlet.
+
+The service() Method
+The service() method is the main method to perform the actual task. The servlet container (i.e. web server) calls the service() method to handle requests coming from the client( browsers) and to write the formatted response back to the client.
+Each time the server receives a request for a servlet, the server spawns a new thread and calls service. The service() method checks the HTTP request type (GET, POST, PUT, DELETE, etc.) and calls doGet, doPost, doPut, doDelete, etc. methods as appropriate.
+
+The destroy() Method
+The destroy() method is called only once at the end of the life cycle of a servlet. This method gives your servlet a chance to close database connections, halt background threads, write cookie lists or hit counts to disk, and perform other such cleanup activities.
+After the destroy() method is called, the servlet object is marked for garbage collection.
+
+Servlet Filters are Java classes that can be used in Servlet Programming for the following purposes −
+
+To intercept requests from a client before they access a resource at back end.
+
+To manipulate responses from server before they are sent back to the client.
+(Authentication Filters. Data compression Filters. Encryption Filters.)
+Filters are deployed in the deployment descriptor file web.xml and then map to either servlet names or URL patterns in your application's deployment descriptor.
+
+
+Servlet Filter Methods
+A filter is simply a Java class that implements the javax.servlet.Filter interface. The javax.servlet.Filter interface defines three methods −
+Encryption Filters.
+authentication filter 
+Sr.No.	Method & Description	
+public void doFilter (ServletRequest, ServletResponse, FilterChain)
+This method is called by the container each time a request/response pair is passed through the chain due to a client request for a resource at the end of the chain.
+public void init(FilterConfig filterConfig)
+This method is called by the web container to indicate to a filter that it is being placed into service.
+public void destroy()
+This method is called by the web container to indicate to a filter that it is being taken out of service.
+
+Cookies are text files stored on the client computer and they are kept for various information tracking purpose. Java Servlets transparently supports HTTP cookies.
+There are three steps involved in identifying returning users −
+Server script sends a set of cookies to the browser. For example name, age, or identification number etc.
+Browser stores this information on local machine for future use.
+When next time browser sends any request to web server then it sends those cookies information to the server and server uses that information to identify the user.
+
+
+Session in Servlet 
+HTTP is a "stateless" protocol which means each time a client retrieves a Web page, the client opens a separate connection to the Web server and the server automatically does not keep any record of previous client request.
+
+Still there are following three ways to maintain session between web client and web server −
+ 1- Cookies
+A webserver can assign a unique session ID as a cookie to each web client and for subsequent requests from the client they can be recognized using the recieved cookie.
+
+This may not be an effective way because many time browser does not support a cookie, so I would not recommend to use this procedure to maintain the sessions.
+ 2 - URL Rewriting
+You can append some extra data on the end of each URL that identifies the session, and the server can associate that session identifier with data it has stored about that session.
+
+For example, with http://tutorialspoint.com/file.htm;sessionid = 12345, the session identifier is attached as sessionid = 12345 which can be accessed at the web server to identify the client.
+
+URL rewriting is a better way to maintain sessions and it works even when browsers don't support cookies. The drawback of URL re-writing is that you would have to generate every URL dynamically to assign a session ID, even in case of a simple static HTML page.
+
+
+3 -  HttpSession Object
+Apart from the above mentioned three ways, servlet provides HttpSession Interface which provides a way to identify a user across more than one page request or visit to a Web site and to store information about that user.
+
+The servlet container uses this interface to create a session between an HTTP client and an HTTP server. The session persists for a specified time period, across more than one connection or page request from the user.
+
+You would get HttpSession object by calling the public method getSession() of HttpServletRequest, as below −
+
+
+
+
+
+------------------------------
+JSP
+What is JavaServer Pages?
+JavaServer Pages (JSP) is a technology for developing Webpages that supports dynamic content. This helps developers insert java code in HTML pages by making use of special JSP tags, most of which start with <% and end with %>.
+
+A JavaServer Pages component is a type of Java servlet that is designed to fulfill the role of a user interface for a Java web application. Web developers write JSPs as text files that combine HTML or XHTML code, XML elements, and embedded JSP actions and commands.
+
+Using JSP, you can collect input from users through Webpage forms, present records from a database or another source, and create Webpages dynamically.
+
+JSP tags can be used for a variety of purposes, such as retrieving information from a database or registering user preferences, accessing JavaBeans components, passing control between pages, and sharing information between requests, pages etc.
+
+
+SP Processing
+The following steps explain how the web server creates the Webpage using JSP −
+
+As with a normal page, your browser sends an HTTP request to the web server.
+
+The web server recognizes that the HTTP request is for a JSP page and forwards it to a JSP engine. This is done by using the URL or JSP page which ends with .jsp instead of .html.
+
+The JSP engine loads the JSP page from disk and converts it into a servlet content. This conversion is very simple in which all template text is converted to println( ) statements and all JSP elements are converted to Java code. This code implements the corresponding dynamic behavior of the page.
+
+The JSP engine compiles the servlet into an executable class and forwards the original request to a servlet engine.
+
+A part of the web server called the servlet engine loads the Servlet class and executes it. During execution, the servlet produces an output in HTML format. The output is furthur passed on to the web server by the servlet engine inside an HTTP response.
+
+The web server forwards the HTTP response to your browser in terms of static HTML content.
+
+Finally, the web browser handles the dynamically-generated HTML page inside the HTTP response exactly as if it were a static page.
+
+JSP LifeCycle :
+Compilation
+complie jsp for detect changes in it  after compile 
+Initialization
+it call JspIntial() 
+Execution
+Cleanup
+
+
+
+JSP Compilation
+When a browser asks for a JSP, the JSP engine first checks to see whether it needs to compile the page. If the page has never been compiled, or if the JSP has been modified since it was last compiled, the JSP engine compiles the page.
+
+The compilation process involves three steps −
+
+Parsing the JSP.
+Turning the JSP into a servlet.
+Compiling the servlet.
+JSP Initialization
+When a container loads a JSP it invokes the jspInit() method before servicing any requests. If you need to perform JSP-specific initialization, override the jspInit() method −
+
+public void jspInit(){
+   // Initialization code...
+}
+Typically, initialization is performed only once and as with the servlet init method, you generally initialize database connections, open files, and create lookup tables in the jspInit method.
+
+JSP Execution
+This phase of the JSP life cycle represents all interactions with requests until the JSP is destroyed.
+
+Whenever a browser requests a JSP and the page has been loaded and initialized, the JSP engine invokes the _jspService() method in the JSP.
+
+The _jspService() method takes an HttpServletRequest and an HttpServletResponse as its parameters as follows −
+
+void _jspService(HttpServletRequest request, HttpServletResponse response) {
+   // Service handling code...
+}
+The _jspService() method of a JSP is invoked on request basis. This is responsible for generating the response for that request and this method is also responsible for generating responses to all seven of the HTTP methods, i.e, GET, POST, DELETE, etc.
+
+JSP Cleanup
+The destruction phase of the JSP life cycle represents when a JSP is being removed from use by a container.
+
+The jspDestroy() method is the JSP equivalent of the destroy method for servlets. Override jspDestroy when you need to perform any cleanup, such as releasing database connections or closing open files.
+
+The jspDestroy() method has the following form −
+
+
+
+
+
+
+
+listner 
+Why do we have Servlet Listener?
+We know that using ServletContext, we can create an attribute with application scope that all other servlets can access but we can initialize ServletContext init parameters as String only in deployment descriptor (web.xml). What if our application is database oriented and we want to set an attribute in ServletContext for Database Connection. If you application has a single entry point (user login), then you can do it in the first servlet request but if we have multiple entry points then doing it everywhere will result in a lot of code redundancy. Also if database is down or not configured properly, we won’t know until first client request comes to server. To handle these scenario, servlet API provides Listener interfaces that we can implement and configure to listen to an event and do certain operations.
+Event is occurrence of something, in web application world an event can be initialization of application, destroying an application, request from client, creating/destroying a session, attribute modification in session etc.
+
+
+انا بحك listner
+علي request 
+or sevelt 
+context 
+and 
+يعني اول ما يبدا الي الي يحصل 
+وال ما يتعمله destory ايه الي يحصل 
+
+
+The scripting elements provides the ability to insert java code inside the jsp. There are three types of scripting elements:
+
+scriptlet tag
+expression tag
+declaration tag
+
+scriptlet tag
+In this example, we are displaying a welcome message.
+
+<html>  
+<body>  
+<% out.print("welcome to jsp"); %>  
+</body>  
+</html>  
+
+
+Jsp that is html can write java code in it 
+expresssion tag 
+<%= "Welcome "+request.getParameter("uname") %>   that is expresssion tag for print as output 
+ declaration tags  <%! int data=50; %>  
+
+
+
+
+
+
+
+
+
+
